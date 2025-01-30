@@ -23,7 +23,8 @@ const bookSchema = mongoose.Schema({
     description: {
         type:String,
         required: true
-    }
+    },
+    userId: mongoose.Schema.Types.ObjectId,
 
 })
 
