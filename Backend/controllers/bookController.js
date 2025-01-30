@@ -1,0 +1,53 @@
+import Book from "../models/Book.js";
+
+
+//Add New Book (Create)
+export const addBook = async (req,res)=>{
+    const book = new Book({...req.body, userId: req.user.id});
+    try{
+        await book.save();
+        res.status(201).json(book);
+    } catch(error){
+        res.status(400).json({ message: error.message });
+    }
+};
+
+//Get All Books (Read)
+export const getBooks = async(req,res)=>{
+    try{
+        const books = await Book.find();
+        res.json(books);
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//Get Books By User (Read)
+export const getBooksByUser = async(req,res)=>{
+    try{
+        const books = await Book.find({userId: req.user.id});
+        res.json(books);
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//Update Book (Update)
+export const updateBook = async(req,res)=>{
+    try{
+        const book = await Book.findByIdAndUpdate({_id:req.params.id},{$set: req.body},{ new: true });
+        res.json(book);
+    }catch(error){
+        res.status(500).json({ message: error.message})
+    }
+}
+
+//Delete Book
+export const deleteBook = async(req,res)=>{
+    try{
+        await Book.findByIdAndDelete(req.params.id);
+        res.status(200).json({message:"Book Deleted"})
+    }catch(error){
+        res.json({ message: error.message})
+    }
+}
