@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/add", authMiddleware, upload.single("image"), addBook);
 router.get("/", authMiddleware, getBooks);
 router.get("/:id", authMiddleware, getBooksByUser);
-router.put("/:id", authMiddleware, updateBook);
+router.put("/:id", authMiddleware, upload.single("image"), updateBook);
 router.delete("/:id", authMiddleware, deleteBook);
 
 export default router;

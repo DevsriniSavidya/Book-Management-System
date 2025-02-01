@@ -34,17 +34,34 @@ export const getBooksByUser = async(req,res)=>{
     }
 };
 
-//Update Book (Update)
-export const updateBook = async(req,res)=>{
-    try{
-        const book = await Book.findByIdAndUpdate({_id:req.params.id},{$set: req.body},{ new: true });
-        res.json(book);
-    }catch(error){
-        res.status(500).json({ message: error.message})
-    }
-}
+//Update Book Details(Update)
+export const updateBook = async (req, res) => {
+    try {
 
-//Delete Book
+        const updateData = { ...req.body };
+
+        // If there's a new image, update the image field in the database
+        if (req.file) {
+            updateData.image = req.file.filename;
+        }
+
+        const book = await Book.findOneAndUpdate(
+            { _id: req.params.id, userId: req.user.id }, // Ensure only the owner can update
+            { $set: updateData },
+            { new: true }
+        );
+
+        if (!book) {
+            return res.status(404).json({ message: "Book not found or unauthorized" });
+        }
+
+        res.json(book);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+//Delete Book (Delete)
 export const deleteBook = async(req,res)=>{
     try{
         await Book.findByIdAndDelete(req.params.id);

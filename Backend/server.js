@@ -10,9 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/uploads", express.static("uploads"));
 //Routes
 app.use("/api/auth", authRouts);
 app.use("/api/books",bookRouter)
+
 const PORT = process.env.PORT || 5000
 
 mongoose.connect(process.env.CONNECTION_URL,).then(()=>app.listen(PORT,()=>
