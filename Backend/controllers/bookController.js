@@ -1,13 +1,15 @@
 import Book from "../models/Book.js";
 
+// Add New Book (Create)
+export const addBook = async (req, res) => {
+    const { title, author, genre, language, publishDate, description } = req.body;
+    const image = req.file ? req.file.filename : null;
 
-//Add New Book (Create)
-export const addBook = async (req,res)=>{
-    const book = new Book({...req.body, userId: req.user.id});
-    try{
+    try {
+        const book = new Book({ title, author, genre, language, publishDate, description, image, userId: req.user.id });
         await book.save();
         res.status(201).json(book);
-    } catch(error){
+    } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };

@@ -23,7 +23,7 @@ const bookSchema = mongoose.Schema({
     description: {
         type:String,
         required: true
-    },
+    }, image: { type: String },
     userId: mongoose.Schema.Types.ObjectId,
 
 })
