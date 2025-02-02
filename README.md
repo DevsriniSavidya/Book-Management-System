@@ -1,11 +1,13 @@
 # Book-Management-System
-Web application for managing a collection of books.The application should allow users to view, add, edit, and delete books.
+- Web application for managing a collection of books.
+- The application allows Logged users to view, add, edit, and delete books.
+- Guest Users can View Home Page and explore Books.
 
 ### Setup project
 Clone the repository in local machine.
 
 ### Setup Frontend
-- Navigate to frontend directory
+- Navigate to the frontend directory
    ```bash
    cd frontend
   
@@ -17,7 +19,7 @@ Clone the repository in local machine.
     `npm run start`
 
 ### Setup Backend
-- Navigate to Backend directory
+- Navigate to the Backend directory
    ```bash
     `cd backend`
 - Install all dependencies
