@@ -45,7 +45,7 @@ export const updateBook = async (req, res) => {
             updateData.image = req.file.filename;
         }
 
-        const book = await Book.findOneAndUpdate(
+        const book = await Book.findByIdAndUpdate(
             { _id: req.params.id, userId: req.user.id }, // Ensure only the owner can update
             { $set: updateData },
             { new: true }
