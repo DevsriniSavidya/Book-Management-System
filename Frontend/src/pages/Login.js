@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Register from "./Register";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -14,7 +13,9 @@ const Login = () => {
             const res = await axios.post("http://localhost:8070/api/auth/login", { email, password });
             localStorage.setItem("token", res.data.token);
             console.log("Worked");
-            // navigate("/dashboard");
+
+            navigate("/")
+            window.location.reload()
         } catch (err) {
             alert("Login failed");
         }
@@ -65,9 +66,9 @@ const Login = () => {
 
                 <p className="mt-4 text-center text-sm">
                     Don't have an account?{" "}
-                    <a className="font-bold text-sky-800 hover:underline" href={Register}>
+                    <span className="font-bold text-sky-800 hover:underline" onClick={() => navigate("/register")}>
                         Sign up
-                    </a>
+                    </span>
                 </p>
             </form>
         </div>
