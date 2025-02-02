@@ -1,24 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 
+//Explore Book Collection
 const DisplayBook = () => {
     const [books, setBooks] = useState([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBooks = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                navigate("/login");
-                return;
-            }
 
             try {
-                const res = await axios.get("http://localhost:8070/api/books", {
-                    headers: { Authorization: token },
-                });
+                const res = await axios.get("http://localhost:8070/api/books");
                 setBooks(res.data);
             } catch (error) {
                 console.error("Error fetching books:", error);
@@ -26,11 +18,11 @@ const DisplayBook = () => {
         };
 
         fetchBooks();
-    }, [navigate]);
-
+    }, []);
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6">
-            <h2 className="text-3xl font-bold mb-6">My Books</h2>
+        <div className="flex flex-col items-center min-h-screen bg-sky-200 p-6" style={{ backgroundImage: "url('/images/BackPhoto.jpg')" }}>
+
+            <h2 className="text-3xl font-bold mb-6">Explore Books</h2>
             {books.length === 0 ? (
                 <p className="text-gray-700">No books found.</p>
             ) : (

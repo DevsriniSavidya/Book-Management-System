@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
+//User can View User's Own Book Collection
 const ViewBook = () => {
     const [books, setBooks] = useState([]);
     const navigate = useNavigate();
@@ -60,8 +61,7 @@ const ViewBook = () => {
 
 
     return (
-
-        <div className="flex flex-col items-center min-h-screen bg-gray-100 p-6">
+        <div className="flex flex-col items-center min-h-screen bg-sky-200 p-6" style={{ backgroundImage: "url('/images/BackPhoto.jpg')" }}>
             <h2 className="text-3xl font-bold mb-6">My Book Collection</h2>
             {books.length === 0 ? (
                 <p className="text-gray-700">No books found.</p>
