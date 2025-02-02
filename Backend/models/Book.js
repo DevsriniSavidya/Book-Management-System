@@ -15,6 +15,7 @@ const bookSchema = mongoose.Schema({
     },
     language: {
         type:String,
+        required: true
     },
     publishDate: {
         type:Date,
@@ -25,7 +26,8 @@ const bookSchema = mongoose.Schema({
         required: true
     },
     image: {
-        type: String
+        type: String,
+        required: true
     },
     userId: mongoose.Schema.Types.ObjectId,
 
