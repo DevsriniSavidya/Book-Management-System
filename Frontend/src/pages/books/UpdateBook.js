@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateBook = ()    => {
     const { id } = useParams();
@@ -32,15 +33,16 @@ const UpdateBook = ()    => {
                     headers: { Authorization: token }
                 });
 
-                if (res.data && res.data.length > 0) {
-                    const book = res.data[0];
+                if (Array.isArray(res.data) && res.data.length > 0) {
+                    const book = res.data.find(book => book._id === id) || res.data[0];
+
                     setBookData({
-                        title: book.title,
-                        author: book.author,
-                        genre: book.genre,
-                        language: book.language,
-                        publishDate: book.publishDate,
-                        description: book.description,
+                        title: book.title || "",
+                        author: book.author || "",
+                        genre: book.genre || "",
+                        language: book.language || "",
+                        publishDate: book.publishDate ? book.publishDate.split('T')[0] : "",
+                        description: book.description || "",
                         image: null
                     });
                 } else {
@@ -51,6 +53,7 @@ const UpdateBook = ()    => {
                 alert("Failed to load book details");
             }
         };
+
         fetchBook();
     }, [id, navigate]);
 
@@ -85,19 +88,32 @@ const UpdateBook = ()    => {
                     "Content-Type": "multipart/form-data"
                 }
             });
-            alert("Book updated successfully!");
+            Swal.fire({
+                title: "Book updated successfully!",
+                icon: "success",
+                draggable: true
+            });
             navigate("/ViewBook");
         } catch (error) {
             console.error("Error updating book:", error);
-            alert("Failed to update book");
+            Swal.fire("Failed to update book");
         }
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-[400px]">
+        <div className="flex flex-col items-center min-h-screen  p-6" style={{ backgroundImage: "url('/images/BackPhoto.jpg')" }}>
+            <form key={id} onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-[400px]">
+
                 <h2 className="text-2xl font-bold text-center mb-6">Update Book</h2>
 
+                <div className="flex justify-center mb-4">
+                    <img src="/images/editbook.png"
+                         alt="Edit Book"
+                         className="w-40 h-40 object-contain" />
+                </div>
+
+
+                <label className="block text-gray-700  mb-2">Title:</label>
                 <input
                     type="text"
                     name="title"
@@ -106,6 +122,8 @@ const UpdateBook = ()    => {
                     className="w-full p-3 mb-4 border rounded-lg"
                     required
                 />
+
+                <label className="block text-gray-700 mb-2">Author: </label>
                 <input
                     type="text"
                     name="author"
@@ -114,6 +132,8 @@ const UpdateBook = ()    => {
                     className="w-full p-3 mb-4 border rounded-lg"
                     required
                 />
+
+                <label className="block text-gray-700 mb-2">Genre:</label>
                 <input
                     type="text"
                     name="genre"
@@ -122,6 +142,8 @@ const UpdateBook = ()    => {
                     className="w-full p-3 mb-4 border rounded-lg"
                     required
                 />
+
+                <label className="block text-gray-700 mb-2">Language: </label>
                 <input
                     type="text"
                     name="language"
@@ -129,6 +151,8 @@ const UpdateBook = ()    => {
                     onChange={handleChange}
                     className="w-full p-3 mb-4 border rounded-lg"
                 />
+
+                <label className="block text-gray-700 mb-2">Date: </label>
                 <input
                     type="date"
                     name="publishDate"
@@ -137,6 +161,8 @@ const UpdateBook = ()    => {
                     className="w-full p-3 mb-4 border rounded-lg"
                     required
                 />
+
+                <label className="block text-gray-700 mb-2">Description:</label>
                 <textarea
                     name="description"
                     placeholder="Description"
@@ -144,7 +170,9 @@ const UpdateBook = ()    => {
                     onChange={handleChange}
                     className="w-full p-3 mb-4 border rounded-lg"
                     required
-                ></textarea>
+                />
+
+                <label className="block text-gray-700 mb-2">Book Cover: </label>
                 <input
                     type="file"
                     name="image"
@@ -152,12 +180,15 @@ const UpdateBook = ()    => {
                     className="w-full p-3 mb-4 border rounded-lg"
                 />
 
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-800 transition"
-                >
+                <button type="submit"
+                        className="w-full mt-6 px-6 py-3 font-bold text-white bg-sky-950 rounded-lg hover:bg-slate-700 transition">
                     Update Book
                 </button>
+
+                <button type="button" onClick={() => navigate(-1)} className="mt-4 w-full bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-800 transition">
+                    Back
+                </button>
+
             </form>
         </div>
     );
