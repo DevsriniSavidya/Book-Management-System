@@ -6,17 +6,21 @@ const Home = () => {
 
     return (
         <div className="flex flex-col bg-white p-6 m-3">
-            <div className="flex">
+            <div className="flex flex-wrap items-center">
                 <div className="flex-1 p-6">
-                    <h1 className=" text-pink-600 text-5xl font-extrabold  hover:text-blue-500 transition duration-300">
-                        BookVault
-                    </h1>
-
-                    <p className="text-2xl mt-4 font-medium transition-colors duration-300">
-                    <span className="text-violet-900 text-4xl hover:text-sky-300 transition-colors duration-300">
+                    <p className="text-6xl mt-4 font-extrabold transition-colors duration-300">
+                    <span className="text-fuchsia-900 hover:text-sky-700 "  style={{ textShadow: "3px 3px 5px rgba(0, 0, 0, 0.8)" }}>
+                        Book
+                    </span>
+                        <span className=" text-pink-600 " style={{ textShadow: "3px 3px 5px rgba(0, 0, 0, 0.7)" }}>
+                        Vault
+                    </span>
+                    </p>
+                    <p className="text-2xl mt-4 font-medium ">
+                    <span className="text-violet-900 text-4xl drop-shadow-2xl hover:text-teal-900 transition-colors duration-300">
                         Welcome
                     </span>{"  "}
-                        <span className=" italic text-sky-800 font-italic">
+                        <span className=" italic text-sky-800 ">
                         to Your Digital Bookshelf!
                     </span>
                     </p>
@@ -30,7 +34,7 @@ const Home = () => {
                 </div>
 
 
-                <div className="flex-1 ml-10">
+                <div className="w-full md:w-1/2 p-4">
                     <img
                         src="/books.png"
                         alt="Home"
