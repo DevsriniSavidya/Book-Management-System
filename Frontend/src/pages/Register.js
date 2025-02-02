@@ -32,7 +32,7 @@ const Register = ()=>{
                 </p>
             </div>
 
-            {/* Login Form */}
+            {/* Register Form */}
             <form onSubmit={handeRegister} className="bg-white p-10 w-[400px] rounded-r-lg shadow-lg">
                 <h2 className="text-center text-3xl font-bold mb-8">Register</h2>
 
